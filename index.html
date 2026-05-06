@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramon Lincon | Desenvolvedor Web</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0a0a0f;
+    --bg2:#111118;
+    --bg3:#1a1a24;
+    --accent:#6c63ff;
+    --accent2:#00d4ff;
+    --text:#e8e8f0;
+    --muted:#888899;
+    --border:#2a2a3a;
+    --card:#15151f;
+  
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden}
+
+  /* BARRA DE NAVEGAÇÃO */
+  nav{
+    position:fixed;top:0;width:100%;z-index:100;
+    background:rgba(10,10,15,0.85);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    padding:1rem 2rem;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .logo{font-family:'Fira Code',monospace;color:var(--accent2);font-size:1rem}
+  .logo span{color:var(--accent)}
+  nav ul{list-style:none;display:flex;gap:2rem}
+  nav ul a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:.3s}
+  nav ul a:hover{color:var(--accent2)}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;display:flex;align-items:center;
+    padding:6rem 2rem 3rem;
+    position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;top:-20%;left:-10%;
+    width:600px;height:600px;
+    background:radial-gradient(circle,rgba(108,99,255,.15) 0%,transparent 70%);
+    animation:pulse 6s ease-in-out infinite;
+  }
+  .hero::after{
+    content:'';position:absolute;bottom:-20%;right:-10%;
+    width:400px;height:400px;
+    background:radial-gradient(circle,rgba(0,212,255,.1) 0%,transparent 70%);
+    animation:pulse 8s ease-in-out infinite reverse;
+  }
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+  .hero-content{max-width:800px;margin:0 auto;z-index:1;position:relative;animation:fadeUp .8s ease both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  .tag{
+    display:inline-block;
+    font-family:'Fira Code',monospace;font-size:.8rem;
+    color:var(--accent2);border:1px solid rgba(0,212,255,.3);
+    padding:.3rem .8rem;border-radius:20px;margin-bottom:1.5rem;
+  }
+  .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;line-height:1.1;margin-bottom:1.5rem}
+  .hero h1 .name{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+  .hero p{font-size:1.1rem;color:var(--muted);max-width:550px;margin-bottom:2.5rem}
+  .btns{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-primary{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#fff;border:none;padding:.85rem 2rem;border-radius:8px;
+    font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;
+    text-decoration:none;transition:.3s;display:inline-block;
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(108,99,255,.4)}
+  .btn-outline{
+    background:transparent;color:var(--text);
+    border:1px solid var(--border);padding:.85rem 2rem;border-radius:8px;
+    font-family:inherit;font-size:.95rem;cursor:pointer;
+    text-decoration:none;transition:.3s;display:inline-block;
+  }
+  .btn-outline:hover{border-color:var(--accent2);color:var(--accent2)}
+
+  /* SEÇÕES GERAIS */
+  section{padding:6rem 2rem;max-width:1000px;margin:0 auto}
+  .section-title{
+    font-size:1.8rem;font-weight:700;margin-bottom:.5rem;
+    display:flex;align-items:center;gap:.8rem;
+  }
+  .section-title::after{
+    content:'';flex:1;height:1px;background:var(--border);
+  }
+  .num{font-family:'Fira Code',monospace;color:var(--accent);font-size:1rem;font-weight:400}
+  .section-sub{color:var(--muted);margin-bottom:3rem;font-size:1rem}
+
+  /* SOBRE MIM */
+  .sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+  .sobre-text p{color:var(--muted);line-height:1.8;margin-bottom:1rem}
+  .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  .skill-item{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:8px;padding:.7rem 1rem;
+    font-family:'Fira Code',monospace;font-size:.85rem;
+    color:var(--accent2);transition:.3s;
+  }
+  .skill-item:hover{border-color:var(--accent);transform:translateX(4px)}
+
+  /* SERVIÇOS */
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+  .service-card{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:12px;padding:2rem;transition:.3s;position:relative;overflow:hidden;
+  }
+  .service-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    transform:scaleX(0);transform-origin:left;transition:.3s;
+  }
+  .service-card:hover{border-color:rgba(108,99,255,.5);transform:translateY(-4px)}
+  .service-card:hover::before{transform:scaleX(1)}
+  .service-icon{font-size:2rem;margin-bottom:1rem}
+  .service-card h3{font-size:1.1rem;margin-bottom:.8rem}
+  .service-card p{color:var(--muted);font-size:.9rem;line-height:1.7}
+
+  /* PORTFÓLIO */
+  .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+  .port-card{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:12px;overflow:hidden;transition:.3s;
+  }
+  .port-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+  .port-img{
+    height:160px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:3rem;position:relative;overflow:hidden;
+  }
+  .port-img.c1{background:linear-gradient(135deg,#1a0533,#2d1554)}
+  .port-img.c2{background:linear-gradient(135deg,#001a2c,#003354)}
+  .port-img.c3{background:linear-gradient(135deg,#0a1f0a,#0d3d0d)}
+  .port-info{padding:1.2rem}
+  .port-info h3{font-size:1rem;margin-bottom:.4rem}
+  .port-info p{color:var(--muted);font-size:.85rem;margin-bottom:1rem}
+  .tags{display:flex;gap:.5rem;flex-wrap:wrap}
+  .tag-sm{
+    font-size:.72rem;padding:.2rem .6rem;border-radius:20px;
+    background:rgba(108,99,255,.15);color:var(--accent);border:1px solid rgba(108,99,255,.3);
+    font-family:'Fira Code',monospace;
+  }
+
+  /* FORMULÁRIO DE ORÇAMENTO */
+  .contact-wrap{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:16px;padding:3rem;
+
+  }
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .form-group{display:flex;flex-direction:column;gap:.5rem}
+  .form-group.full{grid-column:1/-1}
+  label{font-size:.85rem;color:var(--muted)}
+  input,textarea,select{
+    background:var(--bg3);border:1px solid var(--border);
+    color:var(--text);border-radius:8px;padding:.85rem 1rem;
+    font-family:inherit;font-size:.95rem;transition:.3s;
+    width:100%;
+  }
+  input:focus,textarea:focus,select:focus{
+    outline:none;border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(108,99,255,.15);
+  }
+  textarea{resize:vertical;min-height:130px}
+  select option{background:var(--bg3)}
+  .submit-btn{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#fff;border:none;padding:1rem 2.5rem;border-radius:8px;
+    font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;
+    transition:.3s;margin-top:.5rem;width:100%;
+  }
+  .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(108,99,255,.4)}
+  .success-msg{
+    display:none;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);
+    color:var(--accent2);border-radius:8px;padding:1rem;text-align:center;
+    margin-top:1rem;font-size:.95rem;
+  }
+
+  /* RODAPÉ */
+  footer{
+    text-align:center;padding:2rem;border-top:1px solid var(--border);
+    color:var(--muted);font-size:.85rem;
+    font-family:'Fira Code',monospace;
+  }
+
+  /* RESPONSIVO */
+  @media(max-width:700px){
+    .sobre-grid,.form-grid{grid-template-columns:1fr}
+    nav ul{display:none}
+
+    /* HERO - título e texto menores */
+    .hero h1{font-size:1.8rem}
+    .hero p{font-size:.95rem}
+    .hero{padding:5rem 1.2rem 2rem}
+
+    /* SEÇÕES - menos espaço entre elas */
+    section{padding:3.5rem 1.2rem}
+
+    /* BOTÕES - empilhados um embaixo do outro */
+    .btns{flex-direction:column}
+    .btn-primary,.btn-outline{text-align:center;width:100%}
+
+    /* CARDS DE SERVIÇO - ocupam tela toda */
+    .services-grid{grid-template-columns:1fr}
+    .service-card{padding:1.4rem}
+
+    /* PORTFÓLIO - coluna única */
+    .portfolio-grid{grid-template-columns:1fr}
+
+    /* FORMULÁRIO - padding menor */
+    .contact-wrap{padding:1.5rem}
+
+    /* SKILLS - coluna única */
+    .skills-grid{grid-template-columns:1fr 1fr}
+
+    /* TÍTULOS DE SEÇÃO - menores */
+    .section-title{font-size:1.4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVEGAÇÃO: barra fixa no topo com links para cada seção -->
+<nav>
+  <div class="logo"><span>RL</span>.dev</div>
+  <ul>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#portfolio">Portfólio</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO: primeira tela, apresentação impactante -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="tag">&lt; Disponível para projetos /&gt;</div>
+    <h1>Olá, sou<br><span class="name">Ramon Lincon</span><br>Desenvolvedor Web</h1>
+    <p>Crio sites modernos, rápidos e funcionais para pequenos negócios. Do design ao código, do conceito à entrega.</p>
+    <div class="btns">
+      <a href="#contato" class="btn-primary">Solicitar Orçamento</a>
+      <a href="#portfolio" class="btn-outline">Ver Projetos</a>
+    </div>
+  </div>
+</div>
+
+<!-- SOBRE MIM: quem você é, texto + lista de habilidades -->
+<section id="sobre">
+  <div class="section-title"><span class="num">01.</span> Sobre mim <span></span></div>
+  <p class="section-sub">Um pouco da minha trajetória</p>
+  <div class="sobre-grid">
+    <div class="sobre-text">
+      <p>Sou um desenvolvedor web com foco em criar experiências digitais de qualidade para pequenos negócios da região de Osasco e São Paulo.</p>
+      <p>Trabalho com HTML, CSS e JavaScript para construir sites rápidos, responsivos e com visual profissional — do zero até a entrega final.</p>
+      <p>Acredito que todo negócio merece ter uma presença digital forte, independente do tamanho. Por isso ofereço preços acessíveis sem abrir mão da qualidade.</p>
+    </div>
+    <div>
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:1rem;font-family:'Fira Code',monospace">// Tecnologias que uso:</p>
+      <div class="skills-grid">
+        <div class="skill-item">HTML5</div>
+        <div class="skill-item">CSS3</div>
+        <div class="skill-item">JavaScript</div>
+        <div class="skill-item">Responsivo</div>
+        <div class="skill-item">Animações</div>
+        <div class="skill-item">Formulários</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS: o que você oferece -->
+<section id="servicos" style="background:var(--bg2);max-width:100%;padding:6rem 2rem">
+  <div style="max-width:1000px;margin:0 auto">
+    <div class="section-title"><span class="num">02.</span> Serviços <span></span></div>
+    <p class="section-sub">O que posso fazer pelo seu negócio</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <h3>Site Institucional</h3>
+        <p>Site profissional para apresentar seu negócio com informações, fotos e formas de contato.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3>Site Responsivo</h3>
+        <p>Seu site adaptado para celular, tablet e computador — sem perder qualidade em nenhuma tela.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🍽️</div>
+        <h3>Cardápio Digital</h3>
+        <p>Cardápio online para restaurantes, lanchonetes, doceiras e açaís — elegante e fácil de acessar.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <h3>Landing Page</h3>
+        <p>Página focada em converter visitantes em clientes — ideal para divulgação de produtos e serviços.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>Site Rápido e Leve</h3>
+        <p>Código limpo e otimizado para carregar rápido — melhor experiência para seus clientes.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <h3>Manutenção e Edição</h3>
+        <p>Atualização de sites já existentes — textos, fotos, cores, layout e melhorias em geral.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFÓLIO: exemplos de trabalhos -->
+<section id="portfolio">
+  <div class="section-title"><span class="num">03.</span> Portfólio <span></span></div>
+  <p class="section-sub">Alguns projetos desenvolvidos</p>
+  <div class="portfolio-grid">
+    <div class="port-card">
+      <div class="port-img c1">🍔</div>
+      <div class="port-info">
+        <h3>Site Hamburgueria Local</h3>
+        <p>Site com cardápio, horários e botão de contato via WhatsApp.</p>
+        <div class="tags">
+          <span class="tag-sm">HTML</span>
+          <span class="tag-sm">CSS</span>
+          <span class="tag-sm">JS</span>
+        </div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-img c2">🍦</div>
+      <div class="port-info">
+        <h3>Cardápio Açaí</h3>
+        <p>Cardápio digital responsivo com fotos, preços e link do iFood.</p>
+        <div class="tags">
+          <span class="tag-sm">HTML</span>
+          <span class="tag-sm">CSS</span>
+          <span class="tag-sm">Responsivo</span>
+        </div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-img c3">🍬</div>
+      <div class="port-info">
+        <h3>Página Doceria</h3>
+        <p>Landing page para doceria artesanal com galeria e formulário.</p>
+        <div class="tags">
+          <span class="tag-sm">HTML</span>
+          <span class="tag-sm">CSS</span>
+          <span class="tag-sm">Animações</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULÁRIO DE ORÇAMENTO: onde o cliente entra em contato -->
+<section id="contato" style="background:var(--bg2);max-width:100%;padding:6rem 2rem">
+  <div style="max-width:800px;margin:0 auto">
+    <div class="section-title"><span class="num">04.</span> Orçamento <span></span></div>
+    <p class="section-sub">Preencha o formulário e entrarei em contato em até 24h</p>
+    <div class="contact-wrap">
+      <form id="form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nome completo</label>
+            <input type="text" placeholder="Seu nome" required>
+          </div>
+          <div class="form-group">
+            <label>WhatsApp</label>
+            <input type="tel" placeholder="(11) 99999-9999" required>
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" placeholder="seu@email.com">
+          </div>
+          <div class="form-group">
+            <label>Tipo de site</label>
+            <select>
+              <option>Site Institucional</option>
+              <option>Cardápio Digital</option>
+              <option>Landing Page</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Conte sobre seu negócio</label>
+            <textarea placeholder="Ex:"></textarea>
+          </div>
+        </div>
+        <a href="https://wa.me/5511932082325" target="_blank" class="submit-btn" style="display:block;text-align:center;text-decoration:none;">
+            Solicitar Orçamento
+          </a>
+        <div class="success-msg" id="success">✓ Mensagem enviada! Entrarei em contato em breve.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- RODAPÉ -->
+<footer>
+  <p>_ramon18px · Desenvolvido com HTML, CSS & JS</p>
+</footer>
+
+<script>
+  // FORMULÁRIO: ao enviar, mostra mensagem de sucesso
+  document.getElementById('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('success').style.display = 'block';
+    this.reset();
+  });
+
+  // ANIMAÇÃO: elementos aparecem suavemente ao rolar a página
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .port-card, .skill-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
